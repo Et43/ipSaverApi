@@ -1,6 +1,8 @@
 import modules
 import flask
+from flask import request, jsonify
 import requests
+import json
 
 app = flask.Flask(__name__)
 
@@ -95,5 +97,11 @@ def delete():
     elif modules.db.table().validate(name) == True:
         return modules.db.table().delete(name)
 
+@app.route("/test", methods=["POST"])
+def test():
+    data = request.get_json()
+    name = data['name']
+ 
+    return jsonify({ "login": name})
 # Run command.
 app.run()
